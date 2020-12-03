@@ -329,11 +329,11 @@ export function context<T = any>(): T {
 ///
 /// * `results = map(collection, fn)`
 ///   creates as many coroutines with `fn` as items in `collection` and wait for them to finish to return result array.
-export function map<T, R>(collection: T[], fn: (val: T) => R) {
+export function map<T, R>(collection: T[], fn: (val: T, index: number, collection: T[]) => R) {
     return wait(
         Promise.all(
-            collection.map(item => {
-                return run(() => fn(item));
+            collection.map((item, index) => {
+                return run(() => fn(item, index, collection));
             }),
         ),
     );

@@ -322,6 +322,18 @@ describe('collection functions', () => {
                 done();
             });
     });
+
+    it('map callback arguments', done => {
+        run(() => {
+            const collection = [0, 1, 2];
+            map(collection, (current, index, coll) => {
+                equal(current, index);
+                equal(collection, coll);
+            });
+        })
+            .then(done)
+            .catch(done);
+    });
 });
 
 describe('canWait', () => {
